@@ -5,158 +5,205 @@ import Image from "next/image";
 import Link from "next/link";
 
 const floatingWords = [
-  { text: "إبداع", delay: 0, x: "10%", y: "20%" },
-  { text: "تأمل", delay: 0.5, x: "80%", y: "15%" },
-  { text: "ألوان", delay: 1, x: "5%", y: "70%" },
-  { text: "خيال", delay: 1.5, x: "85%", y: "65%" },
-  { text: "هدوء", delay: 0.8, x: "50%", y: "10%" },
+  { text: "إبداع", delay: 0,   x: "8%",  y: "22%" },
+  { text: "تأمل",  delay: 0.5, x: "82%", y: "18%" },
+  { text: "ألوان", delay: 1,   x: "6%",  y: "68%" },
+  { text: "خيال",  delay: 1.5, x: "84%", y: "62%" },
+  { text: "هدوء",  delay: 0.8, x: "50%", y: "8%"  },
 ];
+
+const pills = ["🎨 تلوين", "📋 تخطيط", "✨ ملصقات", "📱 ديجيتال", "🧩 ألعاب"];
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-cream">
-      {/* Background Image */}
+    <section
+      className="
+        relative flex items-center justify-center overflow-hidden bg-cream
+        min-h-[calc(100svh-4rem)] md:min-h-[calc(100svh-5rem)]
+      "
+    >
+      {/* ── Background ── */}
       <div className="absolute inset-0">
         <Image
           src="/images/banner.jpg"
-          alt="DC Note Banner"
+          alt="DC Note"
           fill
           priority
           className="object-cover object-center"
           sizes="100vw"
         />
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-cream/85 via-cream/70 to-cream/90" />
-        <div className="absolute inset-0 bg-gradient-to-r from-cream/60 via-transparent to-cream/60" />
+        <div className="absolute inset-0 bg-gradient-to-b from-cream/90 via-cream/75 to-cream/95" />
+        <div className="absolute inset-0 bg-gradient-to-r from-cream/70 via-transparent to-cream/70" />
       </div>
 
-      {/* Floating decorative words */}
+      {/* ── Decorative floating words — desktop only ── */}
       {floatingWords.map((word, i) => (
         <motion.span
           key={i}
           initial={{ opacity: 0 }}
-          animate={{ opacity: [0, 0.12, 0.08, 0.12] }}
-          transition={{ delay: word.delay, duration: 3, repeat: Infinity, repeatType: "mirror" }}
-          className="absolute hidden lg:block text-navy font-cairo font-bold text-4xl select-none pointer-events-none"
+          animate={{ opacity: [0, 0.1, 0.06, 0.1] }}
+          transition={{
+            delay: word.delay,
+            duration: 4,
+            repeat: Infinity,
+            repeatType: "mirror",
+          }}
+          className="absolute hidden lg:block text-navy font-cairo font-black text-5xl select-none pointer-events-none"
           style={{ left: word.x, top: word.y }}
         >
           {word.text}
         </motion.span>
       ))}
 
-      {/* Dot pattern */}
-      <div className="absolute inset-0 pattern-dots opacity-30 pointer-events-none" />
+      {/* ── Dot pattern ── */}
+      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
 
-      {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="max-w-3xl mx-auto text-center">
+      {/* ── Content ── */}
+      <div className="relative z-10 w-full max-w-2xl mx-auto px-6 sm:px-8 py-12 md:py-16">
+        <div className="flex flex-col items-center text-center gap-5 md:gap-6">
 
-          {/* Logo */}
+          {/* 1 — Logo */}
           <motion.div
-            initial={{ scale: 0.5, opacity: 0 }}
+            initial={{ scale: 0.7, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.7, type: "spring" }}
-            className="flex justify-center mb-8"
+            transition={{ duration: 0.6, type: "spring", stiffness: 160 }}
           >
-            <div className="relative w-28 h-28 md:w-36 md:h-36 rounded-full overflow-hidden shadow-2xl ring-4 ring-rose/20">
+            <div
+              className="
+                relative rounded-full overflow-hidden shadow-xl
+                ring-4 ring-rose/25 ring-offset-2 ring-offset-cream
+                w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28
+              "
+            >
               <Image
                 src="/images/logo.jpg"
                 alt="DC Note Logo"
                 fill
                 priority
                 className="object-cover"
-                sizes="144px"
+                sizes="(max-width: 640px) 80px, (max-width: 768px) 96px, 112px"
               />
             </div>
           </motion.div>
 
-          {/* Brand name */}
+          {/* 2 — Brand name */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.7 }}
+            transition={{ delay: 0.18, duration: 0.6 }}
           >
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-cairo font-black mb-2 tracking-tight">
-              <span className="text-navy">DC </span>
-              <span className="text-rose">Note</span>
-              <span className="text-rose text-3xl md:text-4xl">♥</span>
+            <h1 className="font-cairo font-black tracking-tight leading-none">
+              <span className="text-navy text-4xl sm:text-5xl md:text-6xl lg:text-7xl">DC </span>
+              <span className="text-rose  text-4xl sm:text-5xl md:text-6xl lg:text-7xl">Note</span>
+              <span className="text-rose  text-2xl sm:text-3xl md:text-4xl align-super ml-1">♥</span>
             </h1>
           </motion.div>
 
-          {/* Tagline */}
+          {/* 3 — Arabic tagline */}
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.7 }}
-            className="text-navy/75 font-cairo text-lg md:text-xl lg:text-2xl font-medium mb-2 leading-relaxed"
+            transition={{ delay: 0.32, duration: 0.6 }}
+            className="text-navy/70 font-cairo font-medium leading-relaxed text-base sm:text-lg md:text-xl max-w-lg"
           >
             رفيقك في رحلة الهروب من تعفن الدماغ واستعادة الخيال
           </motion.p>
 
+          {/* 4 — English tagline */}
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.55, duration: 0.7 }}
-            className="text-rose font-cairo text-base md:text-lg font-semibold mb-10 tracking-wide"
+            transition={{ delay: 0.44, duration: 0.6 }}
+            className="text-rose font-cairo font-semibold tracking-widest text-sm md:text-base uppercase"
           >
             Stop Scrolling. Start Imagining. ✦
           </motion.p>
 
-          {/* Feature pills */}
+          {/* 5 — Category pills */}
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.65, duration: 0.6 }}
-            className="flex flex-wrap justify-center gap-2 mb-10"
+            transition={{ delay: 0.56, duration: 0.5 }}
+            className="flex flex-wrap justify-center gap-2"
           >
-            {["🎨 تلوين", "📋 تخطيط", "✨ ملصقات", "📱 ديجيتال", "🧩 ألعاب"].map((tag) => (
+            {pills.map((tag) => (
               <span
                 key={tag}
-                className="bg-white/70 text-navy font-cairo text-sm px-4 py-1.5 rounded-full border border-rose/20 backdrop-blur-sm"
+                className="
+                  bg-white/75 text-navy font-cairo font-medium
+                  text-xs sm:text-sm
+                  px-3 py-1.5 sm:px-4 sm:py-2
+                  rounded-full border border-rose/20 backdrop-blur-sm
+                "
               >
                 {tag}
               </span>
             ))}
           </motion.div>
 
-          {/* CTA Buttons */}
+          {/* 6 — CTA buttons */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.6 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
+            transition={{ delay: 0.7, duration: 0.5 }}
+            className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto pt-1"
           >
-            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+            <motion.div
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className="w-full sm:w-auto"
+            >
               <Link
                 href="/shop"
-                className="flex items-center justify-center gap-2 bg-navy text-cream px-8 py-4 rounded-full font-cairo font-bold text-lg shadow-xl hover:bg-navy-light transition-colors duration-200"
+                className="
+                  flex items-center justify-center gap-2
+                  bg-navy text-cream
+                  px-8 py-3.5 rounded-full
+                  font-cairo font-bold text-base md:text-lg
+                  shadow-lg hover:bg-navy-light
+                  transition-colors duration-200 w-full
+                "
               >
                 🛍️ تسوق الآن
               </Link>
             </motion.div>
-            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+
+            <motion.div
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className="w-full sm:w-auto"
+            >
               <Link
                 href="/about"
-                className="flex items-center justify-center gap-2 bg-white/80 text-navy border-2 border-navy/20 px-8 py-4 rounded-full font-cairo font-bold text-lg backdrop-blur-sm hover:bg-blush transition-colors duration-200"
+                className="
+                  flex items-center justify-center gap-2
+                  bg-white/80 text-navy
+                  border-2 border-navy/20
+                  px-8 py-3.5 rounded-full
+                  font-cairo font-bold text-base md:text-lg
+                  backdrop-blur-sm hover:bg-blush
+                  transition-colors duration-200 w-full
+                "
               >
                 ✨ اعرف أكثر
               </Link>
             </motion.div>
           </motion.div>
+
         </div>
       </div>
 
-      {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-cream to-transparent pointer-events-none" />
+      {/* ── Bottom fade ── */}
+      <div className="absolute bottom-0 inset-x-0 h-20 bg-gradient-to-t from-cream to-transparent pointer-events-none" />
 
-      {/* Scroll indicator */}
+      {/* ── Scroll indicator ── */}
       <motion.div
-        animate={{ y: [0, 10, 0] }}
-        transition={{ repeat: Infinity, duration: 1.8 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-navy/40"
+        animate={{ y: [0, 8, 0] }}
+        transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-navy/35"
       >
-        <span className="font-cairo text-xs">اكتشف المزيد</span>
-        <span className="text-lg">↓</span>
+        <span className="font-cairo text-xs tracking-wider">اكتشف المزيد</span>
+        <span className="text-base">↓</span>
       </motion.div>
     </section>
   );
