@@ -1,114 +1,106 @@
 "use client";
 
 import { motion } from "framer-motion";
+import SectionTitle from "@/components/ui/SectionTitle";
 
 const features = [
   {
-    icon: "✏️",
-    title: "تصاميم أصلية",
-    desc:  "كل منتج مصمم بعناية فائقة ليعكس الذوق الرفيع والإبداع الحقيقي.",
+    icon: "🎨",
+    title: "تنمية الإبداع",
+    description:
+      "منتجاتنا مصممة لإطلاق إبداعك وخيالك بعيداً عن حدود التكنولوجيا والشاشات.",
+    color: "#C4899A",
+    bg: "#F0D9D9",
   },
   {
-    icon: "⚡",
+    icon: "🧠",
+    title: "تنمية التركيز",
+    description:
+      "ألعاب الدماغ والمتاهات تقوي قدرة التركيز وتحسن مهارات التفكير المنطقي.",
+    color: "#A8BBA8",
+    bg: "#E8F0E8",
+  },
+  {
+    icon: "🌿",
+    title: "لحظات هادئة",
+    description:
+      "اهرب من الضجيج الرقمي واستمتع بلحظات تلوين وتأمل هادئة تريح العقل والروح.",
+    color: "#C9A87C",
+    bg: "#F5EDD8",
+  },
+  {
+    icon: "👨‍👩‍👧‍👦",
+    title: "للكبار والأطفال",
+    description:
+      "مجموعة متنوعة تناسب جميع الأعمار، من كتب التلوين للبالغين إلى الكتب التعليمية للأطفال.",
+    color: "#2C2C54",
+    bg: "#E8E8F0",
+  },
+  {
+    icon: "✨",
+    title: "تصاميم مميزة",
+    description:
+      "كل منتج يحمل تصميماً فريداً يعكس الذوق الرفيع والاهتمام بأدق التفاصيل.",
+    color: "#DBA8B8",
+    bg: "#FAF0F0",
+  },
+  {
+    icon: "📥",
     title: "تحميل فوري",
-    desc:  "بمجرد الشراء تحصل على ملفاتك فوراً. لا انتظار ولا شحن.",
-  },
-  {
-    icon: "💎",
-    title: "جودة عالية",
-    desc:  "ملفات بدقة عالية جاهزة للطباعة بأبعاد قياسية ووضوح احترافي.",
-  },
-  {
-    icon: "🔄",
-    title: "تحديثات مستمرة",
-    desc:  "نضيف منتجات ونحدّث التصاميم بشكل منتظم لتبقى دائماً متجددة.",
+    description:
+      "اطلب ونزّل فوراً. منتجات رقمية جاهزة للطباعة في أي وقت ومن أي مكان.",
+    color: "#C4899A",
+    bg: "#F0D9D9",
   },
 ];
 
 export default function WhyDCNote() {
   return (
-    <section
-      className="relative overflow-hidden py-20 md:py-28"
-      style={{ backgroundColor: "#1E1E3C" }}
-    >
-      {/* Subtle background gradient */}
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          backgroundImage:
-            "radial-gradient(ellipse 70% 60% at 90% 10%, rgba(196,137,154,0.12) 0%, transparent 55%), radial-gradient(ellipse 50% 50% at 10% 90%, rgba(107,127,212,0.08) 0%, transparent 50%)",
-        }}
-        aria-hidden
-      />
+    <section className="py-20 bg-cream pattern-dots">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionTitle
+          title="لماذا DC Note؟"
+          subtitle="نؤمن أن الإبداع ليس رفاهية، بل ضرورة للروح"
+        />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
-
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.55 }}
-          className="text-center mb-14 md:mb-18"
-        >
-          <p className="text-rose font-cairo font-semibold text-sm uppercase tracking-widest mb-3">
-            لماذا DC Note
-          </p>
-          <h2
-            className="font-cairo font-black text-3xl md:text-4xl lg:text-5xl mb-4"
-            style={{ color: "#FAFAF8" }}
-          >
-            مصممة لك بعناية
-          </h2>
-          <p className="font-cairo text-base md:text-lg max-w-md mx-auto leading-relaxed" style={{ color: "rgba(250,250,248,0.5)" }}>
-            كل تفصيلة صغيرة في منتجاتنا تخدم تجربتك وتلهم إبداعك
-          </p>
-        </motion.div>
-
-        {/* Feature grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
-          {features.map((f, i) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {features.map((feature, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 28 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-30px" }}
+              viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="group relative rounded-2xl p-7 transition-all duration-300"
-              style={{
-                backgroundColor: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(255,255,255,0.08)",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.07)";
-                e.currentTarget.style.borderColor = "rgba(196,137,154,0.3)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.04)";
-                e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)";
-              }}
+              whileHover={{ y: -4 }}
+              className="bg-white rounded-3xl p-7 shadow-sm hover:shadow-md transition-all duration-300 border border-cream-dark/30"
             >
               {/* Icon */}
               <div
-                className="w-12 h-12 rounded-xl flex items-center justify-center text-xl mb-6"
-                style={{ backgroundColor: "rgba(196,137,154,0.15)" }}
+                className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl mb-5 shadow-sm"
+                style={{ backgroundColor: feature.bg }}
               >
-                {f.icon}
+                {feature.icon}
               </div>
 
-              {/* Title */}
-              <h3 className="font-cairo font-bold text-lg mb-3" style={{ color: "#FAFAF8" }}>
-                {f.title}
+              {/* Content */}
+              <h3
+                className="font-cairo font-bold text-lg mb-3"
+                style={{ color: feature.color }}
+              >
+                {feature.title}
               </h3>
-
-              {/* Description */}
-              <p className="font-cairo text-sm leading-relaxed" style={{ color: "rgba(250,250,248,0.5)" }}>
-                {f.desc}
+              <p className="text-navy/65 font-cairo text-sm leading-relaxed">
+                {feature.description}
               </p>
+
+              {/* Decorative line */}
+              <div
+                className="mt-5 h-0.5 w-12 rounded-full"
+                style={{ backgroundColor: feature.color, opacity: 0.4 }}
+              />
             </motion.div>
           ))}
         </div>
-
       </div>
     </section>
   );

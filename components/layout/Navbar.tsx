@@ -14,7 +14,7 @@ const links = [
   { label: "تواصل معنا", href: "/contact" },
 ];
 
-const WA =
+const WA_HREF =
   "https://wa.me/201033276241?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D9%85%D9%86%D8%AA%D8%AC%D8%A7%D8%AA%20DC%20Note";
 
 export default function Navbar() {
@@ -23,9 +23,9 @@ export default function Navbar() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 16);
-    window.addEventListener("scroll", fn, { passive: true });
-    return () => window.removeEventListener("scroll", fn);
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
@@ -33,105 +33,102 @@ export default function Navbar() {
     return () => { document.body.style.overflow = ""; };
   }, [menuOpen]);
 
-  const isActive = (href: string) =>
-    href === "/" ? pathname === "/" : pathname.startsWith(href);
-
   return (
     <>
       <motion.header
-        initial={{ y: -72 }}
+        initial={{ y: -80 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.45, ease: "easeOut" }}
         className={`
           fixed top-0 inset-x-0 z-50 transition-all duration-300
           ${scrolled
-            ? "bg-white/96 backdrop-blur-xl shadow-[0_1px_0_rgba(0,0,0,0.06)]"
+            ? "bg-warm-white/96 backdrop-blur-md shadow-[0_1px_12px_rgba(44,44,84,0.08)]"
             : "bg-transparent"}
         `}
       >
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
-          <div className="flex items-center h-16 md:h-18 gap-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center h-16 md:h-20 gap-4">
 
             {/* ── Logo ── */}
-            <Link href="/" className="flex items-center gap-3 shrink-0">
-              <div className="relative w-10 h-10 md:w-11 md:h-11 rounded-xl overflow-hidden ring-1 ring-black/8 shadow-sm">
+            <Link href="/" className="flex items-center gap-2.5 shrink-0">
+              <div className="relative w-9 h-9 md:w-10 md:h-10 rounded-full overflow-hidden ring-2 ring-rose/20">
                 <Image
                   src="/images/logo.jpg"
                   alt="DC Note"
                   fill
                   className="object-cover"
-                  sizes="44px"
-                  priority
+                  sizes="40px"
                 />
               </div>
-              <div className="hidden sm:flex flex-col leading-none gap-0.5">
-                <span className="text-navy font-cairo font-black text-lg tracking-tight leading-none">
+              <div className="hidden sm:flex flex-col leading-none">
+                <span className="text-navy font-cairo font-bold text-base leading-tight">
                   DC Note
                 </span>
-                <span className="text-rose font-cairo text-[11px] leading-none font-medium">
+                <span className="text-rose font-cairo text-[11px] leading-tight">
                   أطلق العنان لخيالك
                 </span>
               </div>
             </Link>
 
             {/* ── Desktop nav — centred ── */}
-            <nav className="hidden md:flex items-center gap-1 flex-1 justify-center">
-              {links.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`
-                    relative px-4 py-2 font-cairo text-sm font-medium rounded-full transition-all duration-200
-                    ${isActive(link.href)
-                      ? "text-navy bg-cream"
-                      : "text-navy/60 hover:text-navy hover:bg-gray-50"}
-                  `}
-                >
-                  {link.label}
-                  {isActive(link.href) && (
-                    <span className="absolute bottom-[5px] left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-rose" />
-                  )}
-                </Link>
-              ))}
+            <nav className="hidden md:flex items-center gap-0.5 flex-1 justify-center">
+              {links.map((link) => {
+                const active =
+                  link.href === "/"
+                    ? pathname === "/"
+                    : pathname.startsWith(link.href);
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={`
+                      relative px-3.5 py-2 font-cairo font-medium text-sm rounded-full
+                      transition-all duration-200
+                      ${active
+                        ? "text-rose-dark bg-blush"
+                        : "text-navy hover:text-rose-dark hover:bg-blush/70"}
+                    `}
+                  >
+                    {link.label}
+                    {active && (
+                      <span className="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-rose" />
+                    )}
+                  </Link>
+                );
+              })}
             </nav>
 
-            {/* ── Actions ── */}
+            {/* ── CTA + hamburger ── */}
             <div className="flex items-center gap-2 shrink-0 mr-auto md:mr-0">
+              {/* Separator — visible on desktop */}
+              <span className="hidden md:block w-px h-5 bg-navy/12 mx-1" aria-hidden />
 
-              {/* Shop link — desktop */}
-              <Link
-                href="/shop"
-                className="hidden md:inline-flex items-center font-cairo text-sm font-medium text-navy/60 hover:text-navy transition-colors px-3 py-2"
-              >
-                المتجر
-              </Link>
-
-              {/* CTA — desktop */}
               <a
-                href={WA}
+                href={WA_HREF}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="
                   hidden md:inline-flex items-center gap-1.5
-                  bg-navy text-cream font-cairo font-semibold text-sm
-                  px-5 py-2.5 rounded-full
-                  hover:bg-navy-light active:scale-[0.97]
-                  transition-all duration-200
-                  shadow-sm
+                  bg-navy text-cream
+                  px-4 py-2 rounded-full
+                  font-cairo text-sm font-semibold
+                  hover:bg-navy-light active:scale-95
+                  transition-all duration-200 shadow-sm
                 "
               >
-                اطلب الآن
+                <span className="text-base leading-none">🛒</span>
+                <span>اطلب الآن</span>
               </a>
 
               {/* Hamburger */}
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
-                aria-label={menuOpen ? "إغلاق القائمة" : "القائمة"}
+                className="md:hidden w-9 h-9 flex flex-col items-center justify-center gap-[5px] rounded-full hover:bg-blush transition-colors"
+                aria-label={menuOpen ? "إغلاق القائمة" : "فتح القائمة"}
                 aria-expanded={menuOpen}
-                className="md:hidden w-9 h-9 flex flex-col items-center justify-center gap-[5px] rounded-lg hover:bg-gray-100 transition-colors"
               >
                 <motion.span
-                  animate={menuOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
+                  animate={menuOpen ? { rotate: 45,  y: 7  } : { rotate: 0, y: 0 }}
                   className="block w-5 h-0.5 bg-navy rounded-full origin-center"
                 />
                 <motion.span
@@ -153,62 +150,63 @@ export default function Navbar() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.22, ease: "easeOut" }}
-            className="fixed inset-0 z-40 bg-white flex flex-col"
+            initial={{ opacity: 0, x: "100%" }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: "100%" }}
+            transition={{ type: "tween", duration: 0.28 }}
+            className="fixed inset-0 z-40 bg-warm-white flex flex-col"
           >
+            {/* Header spacer */}
             <div className="h-16" />
 
             <div className="flex-1 flex flex-col px-5 py-6 overflow-y-auto">
-
-              {/* Links */}
               <nav className="flex flex-col gap-1">
-                {links.map((link, i) => (
-                  <motion.div
-                    key={link.href}
-                    initial={{ opacity: 0, x: 16 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.05, duration: 0.22 }}
-                  >
-                    <Link
-                      href={link.href}
-                      onClick={() => setMenuOpen(false)}
-                      className={`
-                        flex items-center justify-between px-5 py-4 rounded-xl
-                        font-cairo font-semibold text-xl transition-colors
-                        ${isActive(link.href)
-                          ? "bg-cream text-navy"
-                          : "text-navy/70 hover:bg-gray-50 hover:text-navy"}
-                      `}
+                {links.map((link, i) => {
+                  const active =
+                    link.href === "/"
+                      ? pathname === "/"
+                      : pathname.startsWith(link.href);
+                  return (
+                    <motion.div
+                      key={link.href}
+                      initial={{ opacity: 0, x: 24 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.06, duration: 0.25 }}
                     >
-                      {link.label}
-                      {isActive(link.href) && (
-                        <span className="w-2 h-2 rounded-full bg-rose" />
-                      )}
-                    </Link>
-                  </motion.div>
-                ))}
+                      <Link
+                        href={link.href}
+                        onClick={() => setMenuOpen(false)}
+                        className={`
+                          flex items-center px-5 py-4 rounded-2xl
+                          font-cairo font-semibold text-xl
+                          transition-colors
+                          ${active
+                            ? "bg-blush text-rose-dark"
+                            : "text-navy hover:bg-blush/60 hover:text-rose"}
+                        `}
+                      >
+                        {link.label}
+                        {active && <span className="mr-auto text-rose text-sm">●</span>}
+                      </Link>
+                    </motion.div>
+                  );
+                })}
               </nav>
 
-              {/* Bottom CTA */}
-              <div className="mt-auto pt-8 flex flex-col gap-3">
-                <Link
-                  href="/shop"
-                  onClick={() => setMenuOpen(false)}
-                  className="flex items-center justify-center bg-navy text-cream w-full py-4 rounded-2xl font-cairo text-lg font-bold"
-                >
-                  تسوق الآن
-                </Link>
+              <div className="mt-auto pt-8">
                 <a
-                  href={WA}
+                  href={WA_HREF}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setMenuOpen(false)}
-                  className="flex items-center justify-center border border-navy/15 text-navy w-full py-4 rounded-2xl font-cairo text-base font-semibold"
+                  className="
+                    flex items-center justify-center gap-2
+                    bg-navy text-cream w-full py-4 rounded-2xl
+                    font-cairo text-lg font-bold
+                    active:scale-98 transition-transform
+                  "
                 >
-                  تواصل عبر واتساب
+                  <span>💬</span> تواصل عبر واتساب
                 </a>
               </div>
             </div>
