@@ -1,0 +1,117 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Tajawal:wght@300;400;500;700;800&display=swap');
+
+@theme {
+  --color-cream: #F8F3EE;
+  --color-cream-dark: #EFE8DF;
+  --color-navy: #2C2C54;
+  --color-navy-light: #3D3D6B;
+  --color-rose: #C4899A;
+  --color-rose-light: #DBA8B8;
+  --color-rose-dark: #A8738A;
+  --color-blush: #F0D9D9;
+  --color-blush-dark: #E5C5C5;
+  --color-sage: #A8BBA8;
+  --color-sage-light: #C4D2C4;
+  --color-gold: #C9A87C;
+  --color-gold-light: #DCC09A;
+  --color-warm-white: #FDFAF5;
+  --color-ink: #1A1A2E;
+
+  --font-cairo: 'Cairo', 'Tajawal', sans-serif;
+  --font-tajawal: 'Tajawal', 'Cairo', sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  direction: rtl;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Cairo', 'Tajawal', sans-serif;
+  background-color: #F8F3EE;
+  color: #1A1A2E;
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Cairo', 'Tajawal', sans-serif;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #2C2C54;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #F8F3EE; }
+::-webkit-scrollbar-thumb { background: #C4899A; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #A8738A; }
+
+::selection { background: #F0D9D9; color: #2C2C54; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes whatsapp-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
+  70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.animate-float { animation: float 4s ease-in-out infinite; }
+.whatsapp-pulse { animation: whatsapp-pulse 2s infinite; }
+
+.gradient-text {
+  background: linear-gradient(135deg, #2C2C54, #C4899A);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.pattern-dots {
+  background-image: radial-gradient(circle, rgba(196,137,154,0.13) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.product-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(196, 137, 154, 0.2);
+}
+
+.brush-underline {
+  position: relative;
+  display: inline-block;
+}
+.brush-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  right: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #C4899A, #DBA8B8, transparent);
+  border-radius: 2px;
+}
