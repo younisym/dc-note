@@ -20,6 +20,9 @@
 
   --font-cairo: 'Cairo', 'Tajawal', sans-serif;
   --font-tajawal: 'Tajawal', 'Cairo', sans-serif;
+
+  /* spacing */
+  --spacing-18: 4.5rem;
 }
 
 *, *::before, *::after {
